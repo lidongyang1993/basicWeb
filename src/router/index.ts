@@ -59,7 +59,7 @@ export const constantRoutes: RouteRecordRaw[] = [
   {
     path: "/case",
     component: Layout,
-    // redirect: "/case/edit",
+    redirect: "/case/edit",
     name: "Case",
     meta: {
       title: "工具集",

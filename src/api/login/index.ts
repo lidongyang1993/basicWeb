@@ -12,7 +12,7 @@ export function getLoginCodeApi() {
 /** 登录并返回 Token */
 export function loginApi(data: Login.LoginRequestData) {
   return request<Login.UserInfoResData>({
-    url: "users/login",
+    url: "user/login",
     method: "post",
     data
   })
@@ -21,7 +21,16 @@ export function loginApi(data: Login.LoginRequestData) {
 /** 获取用户详情 */
 export function getUserInfoApi() {
   return request<Login.UserInfoResData>({
-    url: "users/info",
+    url: "user/info",
     method: "get"
+  })
+}
+
+/** 获取用户详情 */
+export function changePasswordApi(data: Login.ChangePasswordRequestData) {
+  return request<Login.ResData>({
+    url: "user/pwd",
+    method: "post",
+    data
   })
 }

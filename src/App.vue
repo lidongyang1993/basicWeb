@@ -1,14 +1,21 @@
 <script lang="ts" setup>
-import { h } from "vue"
+// import { h } from "vue"
+import { h, onBeforeMount } from "vue"
 import { useTheme } from "@/hooks/useTheme"
 import { ElNotification } from "element-plus"
 // 将 Element Plus 的语言设置为中文
 import zhCn from "element-plus/lib/locale/lang/zh-cn"
-
+import { useUserStore } from "@/store/modules/user"
 const { initTheme } = useTheme()
-
+const userStore = useUserStore()
 /** 初始化主题 */
 initTheme()
+
+onBeforeMount(() => {
+  if (userStore.userInfo === undefined) {
+    userStore.getInfo()
+  }
+})
 
 /** 作者小心思 */
 ElNotification({

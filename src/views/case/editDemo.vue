@@ -5,15 +5,17 @@ import JsonEditorVue from "json-editor-vue3"
 import { ElMessage } from "element-plus"
 import ElButtonAffirm from "./affirmButton.vue"
 import { getCaseApi, checkCaseApi, addCaseApi, debugCaseApi, updateCaseApi } from "@/api/case"
+import { useUserStore } from "@/store/modules/user"
 
 const default_msg = {
   PLAN_NAME: "申报流程自动化-模板",
   MODULE_NAME: "module_001"
 }
 
+const userStore = useUserStore()
+
 const jsonParams = reactive({
   data: {},
-  user: "",
   module: default_msg.MODULE_NAME,
   planName: default_msg.PLAN_NAME
 })
@@ -55,8 +57,8 @@ function alert_error_module() {
 }
 
 function alert_error_user() {
-  if (jsonParams.user === null || jsonParams.user === "") {
-    alert_error("请输入user")
+  if (userStore.username === null || userStore.username === "") {
+    alert_error("没有获取到用户信息，请重新登录")
     return false
   } else return true
 }
@@ -71,8 +73,9 @@ function alert_error_data() {
 async function debugging() {
   const data = {
     data: jsonParams.data,
-    user: jsonParams.user
+    user: userStore.username
   }
+  console.log(data)
 
   if (!alert_error_data()) {
     return
@@ -86,7 +89,11 @@ async function debugging() {
   if (res) {
     result.data = res.data
     if (res.code === 0) {
-      alert_info("debug-完成")
+      if (res.data.result === false) {
+        alert_info("cheack-失败")
+      } else {
+        alert_info("debug-完成")
+      }
     } else {
       alert_error("debug-失败")
     }
@@ -225,9 +232,6 @@ setTimeout(() => {}, 3000)
     </div>
     <div class="input-list">
       <el-row :gutter="20">
-        <el-col :span="6">
-          <el-input class="input" v-model="jsonParams.user" placeholder="user" />
-        </el-col>
         <el-col :span="6">
           <el-input class="input" v-model="jsonParams.module" placeholder="module" />
         </el-col>

@@ -6,11 +6,11 @@
           <div class="user-info">
             <el-avatar :size="120" :src="imgUrl" />
             <div class="user-info-cont">
-              <div class="user-info-name">{{ appStore.userInfo?.username }}</div>
-              <div class="user-info-name">{{ role }}</div>
+              <div class="user-info-name">{{ userStore.userInfo?.username }}</div>
+              <!-- <div class="user-info-name">{{ role }}</div> -->
             </div>
           </div>
-          <div class="user-info-list">欢迎你, {{ appStore.userInfo?.last_name }}，祝你开心每一天！</div>
+          <div class="user-info-list">欢迎你, {{ userStore.userInfo?.last_name }}，祝你开心每一天！</div>
         </el-card>
       </el-col>
     </el-row>
@@ -19,17 +19,10 @@
 <script setup lang="ts">
 import imgUrl from "/src/assets/layout/img.jpg"
 import { useUserStore } from "@/store/modules/user"
-import { onBeforeMount } from "vue"
 
-const appStore = useUserStore()
+const userStore = useUserStore()
 
-onBeforeMount(() => {
-  if (appStore.userInfo === undefined) {
-    appStore.getInfo()
-  }
-})
-
-const role: string = appStore.userInfo?.username === "yangwangyu" ? "超级管理员" : "测试工程师"
+// const role: string = appStore.userInfo?.username === "yangwangyu" ? "超级管理员" : "测试工程师"
 </script>
 
 <style scoped>
