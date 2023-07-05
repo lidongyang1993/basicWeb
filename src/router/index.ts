@@ -57,10 +57,10 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
-    path: "/case",
+    path: "/tools",
     component: Layout,
-    redirect: "/case/edit",
-    name: "Case",
+    redirect: "/tools/caseEdit",
+    name: "Tools",
     meta: {
       title: "工具集",
       elIcon: "Grid"
@@ -81,6 +81,36 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "extAssert",
         meta: {
           title: "解析提取",
+          keepAlive: true
+        }
+      }
+    ]
+  },
+  {
+    path: "/case",
+    component: Layout,
+    redirect: "/case/manage",
+    name: "case",
+    meta: {
+      title: "用例管理",
+      elIcon: "Grid"
+    },
+    children: [
+      {
+        path: "/plan/manage",
+        component: () => import("@/views/case-manage/planTable.vue"),
+        name: "planManage",
+        meta: {
+          title: "测试计划",
+          keepAlive: true
+        }
+      },
+      {
+        path: "/case/manage",
+        component: () => import("@/views/case-manage/caseTable.vue"),
+        name: "caseManage",
+        meta: {
+          title: "测试用例",
           keepAlive: true
         }
       }

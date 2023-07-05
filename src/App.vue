@@ -6,12 +6,19 @@ import { ElNotification } from "element-plus"
 // 将 Element Plus 的语言设置为中文
 import zhCn from "element-plus/lib/locale/lang/zh-cn"
 import { useUserStore } from "@/store/modules/user"
+import { useRoute } from "vue-router"
 const { initTheme } = useTheme()
 const userStore = useUserStore()
 /** 初始化主题 */
 initTheme()
+const route = useRoute()
+
+const { path } = route
 
 onBeforeMount(() => {
+  if (path === "/login") {
+    return
+  }
   if (userStore.userInfo === undefined) {
     userStore.getInfo()
   }

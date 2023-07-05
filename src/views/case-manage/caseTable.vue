@@ -1,0 +1,131 @@
+<script lang="ts" name="caseManage" setup>
+import Table from "@/components/Table/index.vue"
+import { reactive, ref, toRefs, onUnmounted } from "vue"
+import { getCaseListApi, getCaseDataApi } from "@/api/case"
+import { Case } from "../../api/case/types/case"
+import { alert_error } from "../../config/elMessage"
+import Tools from "./components/tools.vue"
+import CaseViews from "./views/caseViews.vue"
+const props = defineProps({
+  planId: {
+    type: Number,
+    default: null
+  },
+  onlyId: {
+    type: Boolean,
+    default: false
+  }
+})
+
+const { planId } = toRefs(props)
+onUnmounted(() => {
+  // tableData.list = []
+})
+const multipleSelection = ref<Case[]>([])
+const handleSelectionChange = (val: Case[]) => {
+  console.log(multipleSelection.value)
+  multipleSelection.value = val
+  console.log(multipleSelection.value)
+}
+
+const searchData = reactive({
+  id: null,
+  name: null,
+  desc: null,
+  planId: planId,
+  currentPage: 1,
+  size: 10
+})
+
+const handleCurrentChange = (value: number, freshData: Function) => {
+  searchData.currentPage = value
+  freshData()
+}
+const handleSizeChange = (value: number, freshData: Function) => {
+  searchData.size = value
+  freshData()
+}
+
+const dialog = reactive({
+  visible: false,
+  title: ""
+})
+
+const caseInfo = reactive({
+  data: {
+    id: 5,
+    name: "",
+    desc: "",
+    variable: {},
+    module: {
+      id: 0,
+      name: "",
+      desc: ""
+    },
+    label: [
+      {
+        id: 0,
+        name: "",
+        desc: ""
+      }
+    ],
+    create_user: "",
+    update_user: ""
+  }
+})
+
+const getData = () => {
+  console.log(multipleSelection.value.length)
+  if (multipleSelection.value.length !== 1) {
+    alert_error("请选择且只选择一条数据")
+    return
+  }
+  getCaseDataApi({ id: multipleSelection.value[0].id })
+    .then((res: ApiResponseData<Case>) => {
+      caseInfo.data = res.data
+    })
+    .catch(() => {})
+    .finally(() => {
+      dialog.visible = true
+    })
+}
+</script>
+
+<template>
+  <Table
+    :search-data="searchData"
+    :get-table-data-api="getCaseListApi"
+    :current-page="searchData.currentPage"
+    :size="searchData.size"
+    :handle-current-change="handleCurrentChange"
+    :handle-size-change="handleSizeChange"
+    :select-change="handleSelectionChange"
+  >
+    <template #search>
+      <el-form-item prop="id" label="id" v-if="!props.onlyId">
+        <el-input v-model="searchData.id" placeholder="请输入" />
+      </el-form-item>
+      <el-form-item prop="name" label="名称">
+        <el-input v-model="searchData.name" placeholder="请输入" />
+      </el-form-item>
+      <el-form-item prop="desc" label="描述">
+        <el-input v-model="searchData.desc" placeholder="请输入" />
+      </el-form-item>
+    </template>
+    <template #tools>
+      <Tools :dialog="dialog" :get-data="getData" />
+    </template>
+    <template #default>
+      <el-table-column type="selection" width="50" align="center" />
+      <el-table-column prop="id" label="编号" width="80" align="center" />
+      <el-table-column prop="name" label="名称" align="center" />
+      <el-table-column prop="desc" label="描述" align="left" />
+    </template>
+  </Table>
+  <el-dialog v-model="dialog.visible" width="70%" v-if="dialog.visible">
+    <CaseViews :info="caseInfo.data" v-if="dialog.title === '查看'" />
+    <!-- <PlanEdit :info="planInfo.data" v-if="dialog.title === '编辑'" /> -->
+  </el-dialog>
+</template>
+
+<style lang="scss" scoped></style>

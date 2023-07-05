@@ -57,6 +57,8 @@ function alert_error_module() {
 }
 
 function alert_error_user() {
+  console.log(userStore)
+
   if (userStore.username === null || userStore.username === "") {
     alert_error("没有获取到用户信息，请重新登录")
     return false

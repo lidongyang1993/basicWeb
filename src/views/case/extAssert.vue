@@ -32,8 +32,8 @@
 import JsonEditorVue from "json-editor-vue3"
 import { reactive } from "vue"
 import ElButtonAffirm from "./affirmButton.vue"
-import { ElMessage } from "element-plus"
 import { checkExrAssertsApi } from "@/api/case"
+import { alert_error, alert_success, alert_info } from "../../config/elMessage"
 
 const jsonParams = reactive({
   data: null,
@@ -52,14 +52,6 @@ const PUBLIC = {
 const result = reactive({
   data: {}
 })
-
-function alert_info(title: any) {
-  ElMessage.info(title)
-}
-
-function alert_error(title: any) {
-  ElMessage.error(title)
-}
 
 function alert_error_data() {
   if (jsonParams.data === null || jsonParams.data === "") {
@@ -85,7 +77,7 @@ async function ext_assert() {
   if (res) {
     result.data = res.data
     if (res.code === 0) {
-      alert_info("check-失败")
+      alert_success("check-成功")
     } else {
       alert_info("check-失败")
     }
