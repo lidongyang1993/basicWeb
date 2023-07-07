@@ -5,7 +5,7 @@ import { getStepListApi } from "@/api/case"
 import { Step } from "../../api/case/types/case"
 
 const props = defineProps({
-  id: {
+  caseId: {
     type: Number,
     default: null
   },
@@ -15,7 +15,7 @@ const props = defineProps({
   }
 })
 
-const { id } = toRefs(props)
+const { caseId } = toRefs(props)
 onUnmounted(() => {
   // tableData.list = []
 })
@@ -28,7 +28,7 @@ const searchData = reactive({
   id: null,
   name: null,
   desc: null,
-  caseId: id,
+  caseId: caseId,
   currentPage: 1,
   size: 10
 })

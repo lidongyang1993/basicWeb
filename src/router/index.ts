@@ -83,6 +83,16 @@ export const constantRoutes: RouteRecordRaw[] = [
           title: "解析提取",
           keepAlive: true
         }
+      },
+
+      {
+        path: "/fileUp",
+        component: () => import("@/views/case-manage/fileTable.vue"),
+        name: "FileUp",
+        meta: {
+          title: "文件预传",
+          keepAlive: true
+        }
       }
     ]
   },

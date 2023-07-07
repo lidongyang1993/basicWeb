@@ -18,7 +18,7 @@
       </ElTable>
     </ElCard>
     <ElCard header="用例列表">
-      <CaseTable :planId="info.id" :only-id="true" />
+      <CaseTable :plan-id="info.id" :only-id="true" />
     </ElCard>
   </ElCard>
 </template>
@@ -35,6 +35,7 @@ const { info } = toRefs(props)
 
 const variableTable = ref<object[]>([])
 const makeTable = () => {
+  console.log(info)
   for (const vars in props.info.variable) {
     variableTable.value.push({ key: vars, value: props.info.variable[vars] })
   }

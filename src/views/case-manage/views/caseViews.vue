@@ -1,9 +1,9 @@
 <template>
   <ElCard>
-    <el-descriptions title="计划详情" class="descriptions" :column="2" :border="true">
+    <el-descriptions title="用例详情" class="descriptions" :column="2" :border="true">
       <el-descriptions-item label="名称">{{ info.name }}</el-descriptions-item>
       <el-descriptions-item label="描述">{{ info.desc }}</el-descriptions-item>
-      <el-descriptions-item label="模块">{{ info.module.name }}</el-descriptions-item>
+      <el-descriptions-item label="模块">{{ info.module?.name }}</el-descriptions-item>
       <el-descriptions-item label="标签">
         <el-tag size="small" class="tag" v-for="label in info.label" :key="label.id">{{ label.name }}</el-tag>
       </el-descriptions-item>
@@ -18,13 +18,15 @@
       </ElTable>
     </ElCard>
     <ElCard header="用例列表">
-      <StepTable :CaseId="info.id" :only-id="true" />
+      <StepTable :case-id="info.id" :only-id="true" />
     </ElCard>
   </ElCard>
 </template>
 
 <script lang="ts" name="planManage" setup>
 import { Case } from "../../../api/case/types/case"
+
+import StepTable from "../stepTable.vue"
 // import CaseTable from "../../case-manage/caseTable.vue"
 import { toRefs, ref, onBeforeMount, onMounted } from "vue"
 const props = defineProps<{

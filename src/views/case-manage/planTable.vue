@@ -13,7 +13,7 @@ const searchData = reactive({
   id: null,
   name: null,
   desc: null,
-  currentPage: 0,
+  currentPage: 1,
   size: 10
 })
 const handleCurrentChange = (value: number, freshData: Function) => {

@@ -92,40 +92,42 @@ const getData = () => {
 </script>
 
 <template>
-  <Table
-    :search-data="searchData"
-    :get-table-data-api="getCaseListApi"
-    :current-page="searchData.currentPage"
-    :size="searchData.size"
-    :handle-current-change="handleCurrentChange"
-    :handle-size-change="handleSizeChange"
-    :select-change="handleSelectionChange"
-  >
-    <template #search>
-      <el-form-item prop="id" label="id" v-if="!props.onlyId">
-        <el-input v-model="searchData.id" placeholder="请输入" />
-      </el-form-item>
-      <el-form-item prop="name" label="名称">
-        <el-input v-model="searchData.name" placeholder="请输入" />
-      </el-form-item>
-      <el-form-item prop="desc" label="描述">
-        <el-input v-model="searchData.desc" placeholder="请输入" />
-      </el-form-item>
-    </template>
-    <template #tools>
-      <Tools :dialog="dialog" :get-data="getData" />
-    </template>
-    <template #default>
-      <el-table-column type="selection" width="50" align="center" />
-      <el-table-column prop="id" label="编号" width="80" align="center" />
-      <el-table-column prop="name" label="名称" align="center" />
-      <el-table-column prop="desc" label="描述" align="left" />
-    </template>
-  </Table>
-  <el-dialog v-model="dialog.visible" width="70%" v-if="dialog.visible">
-    <CaseViews :info="caseInfo.data" v-if="dialog.title === '查看'" />
-    <!-- <PlanEdit :info="planInfo.data" v-if="dialog.title === '编辑'" /> -->
-  </el-dialog>
+  <div>
+    <Table
+      :search-data="searchData"
+      :get-table-data-api="getCaseListApi"
+      :current-page="searchData.currentPage"
+      :size="searchData.size"
+      :handle-current-change="handleCurrentChange"
+      :handle-size-change="handleSizeChange"
+      :select-change="handleSelectionChange"
+    >
+      <template #search>
+        <el-form-item prop="id" label="id" v-if="!props.onlyId">
+          <el-input v-model="searchData.id" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item prop="name" label="名称">
+          <el-input v-model="searchData.name" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item prop="desc" label="描述">
+          <el-input v-model="searchData.desc" placeholder="请输入" />
+        </el-form-item>
+      </template>
+      <template #tools>
+        <Tools :dialog="dialog" :get-data="getData" />
+      </template>
+      <template #default>
+        <el-table-column type="selection" width="50" align="center" />
+        <el-table-column prop="id" label="编号" width="80" align="center" />
+        <el-table-column prop="name" label="名称" align="center" />
+        <el-table-column prop="desc" label="描述" align="left" />
+      </template>
+    </Table>
+    <el-dialog v-model="dialog.visible" width="70%" v-if="dialog.visible">
+      <CaseViews :info="caseInfo.data" v-if="dialog.title === '查看'" />
+      <!-- <PlanEdit :info="planInfo.data" v-if="dialog.title === '编辑'" /> -->
+    </el-dialog>
+  </div>
 </template>
 
 <style lang="scss" scoped></style>

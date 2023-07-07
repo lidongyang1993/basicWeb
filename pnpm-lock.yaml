@@ -1495,8 +1495,8 @@ packages:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
     dev: true
 
-  /ace-builds@1.22.1:
-    resolution: {integrity: sha512-o5RGTPBIiRxguWNors3pT6KuLqj0a2NvNLoqir7/2LLiFm34PJV3BMq4sl9kjPayo4+lmd99m6zAq+XPdhyHQA==}
+  /ace-builds@1.23.1:
+    resolution: {integrity: sha512-vmLfsfOOvEiQPri2Vz+76FvUalz/nHB7+X2GqonG7rc2V+WrHvqc4xYowt1+fxHH3aWw/pDF2jqKQrd8JNMmiQ==}
     dev: false
 
   /acorn-jsx@5.3.2(acorn@8.9.0):
@@ -3339,7 +3339,7 @@ packages:
   /jsoneditor@9.10.2:
     resolution: {integrity: sha512-sT9U8T9MB7We5uyCnofugqYPJtQ5rPJngFlvpdtyFTFKFjOMnlWE1jVhFwjTXwGBoFeiLS+S6rVuhIhJ35Jutw==}
     dependencies:
-      ace-builds: 1.22.1
+      ace-builds: 1.23.1
       ajv: 6.12.6
       javascript-natural-sort: 0.7.1
       jmespath: 0.16.0
