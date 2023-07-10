@@ -35,14 +35,12 @@ const { info } = toRefs(props)
 
 const variableTable = ref<object[]>([])
 const makeTable = () => {
-  console.log(info)
   for (const vars in props.info.variable) {
     variableTable.value.push({ key: vars, value: props.info.variable[vars] })
   }
 }
 
 onBeforeMount(() => {
-  console.log(props.info.variable)
   makeTable()
 })
 

@@ -54,8 +54,8 @@ const makeLabelAndModule = () => {
   info.value.label.forEach((value) => {
     labelList.value.push(value.id)
   })
-  labelOptions.value = info.value.label
-  moduleOptions.value = [info.value.module]
+  // labelOptions.value = info.value.label
+  // moduleOptions.value = [info.value.module]
 }
 
 const getLabelListAll = () => {
@@ -70,7 +70,7 @@ const getModuleListAll = () => {
 }
 
 const labelList = ref<number[]>([])
-const module = ref<Module>(info.value.module)
+const module = ref<number>(info.value.module?.id)
 const moduleOptions = ref<Module[]>([])
 const labelOptions = ref<Label[]>([])
 onBeforeMount(() => {

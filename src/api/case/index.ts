@@ -104,7 +104,7 @@ export const getStepListApi = (data: any) => {
   })
 }
 export const getFileListApi = (data: any) => {
-  return request<ApiResponseData<METER.Step>>({
+  return request<ApiResponseData<METER.Basic>>({
     url: "fileManage/list",
     method: "post",
     data: data

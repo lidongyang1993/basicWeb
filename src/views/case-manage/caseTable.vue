@@ -23,9 +23,7 @@ onUnmounted(() => {
 })
 const multipleSelection = ref<Case[]>([])
 const handleSelectionChange = (val: Case[]) => {
-  console.log(multipleSelection.value)
   multipleSelection.value = val
-  console.log(multipleSelection.value)
 }
 
 const searchData = reactive({
@@ -75,7 +73,6 @@ const caseInfo = reactive({
 })
 
 const getData = () => {
-  console.log(multipleSelection.value.length)
   if (multipleSelection.value.length !== 1) {
     alert_error("请选择且只选择一条数据")
     return

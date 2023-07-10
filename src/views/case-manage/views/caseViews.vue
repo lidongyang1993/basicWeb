@@ -43,7 +43,6 @@ const makeTable = () => {
 }
 
 onBeforeMount(() => {
-  console.log(props.info.variable)
   makeTable()
 })
 
