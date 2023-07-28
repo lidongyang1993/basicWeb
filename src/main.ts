@@ -30,6 +30,7 @@ loadSvg(app)
 loadDirectives(app)
 
 app.use(store).use(router).use(jsonViewer)
+
 router.isReady().then(() => {
   app.mount("#app")
 })

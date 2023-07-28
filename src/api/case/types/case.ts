@@ -1,19 +1,21 @@
 export type Plan = {
-  id: number
+  id?: number
   name: string
   desc: string
-  variable: {
-    [key: string]: string
+  variable?: {
+    [key: string]: string | number
   }
-  module: Module
-  label: Label[]
-  caseList?: Case[]
+  module?: Module
+  label?: Label[]
+  label_id_list?: number[]
+  module_id?: number
+  case?: Case[]
   create_user: string
   update_user: string
 }
 
 export type Basic = {
-  id: number
+  id: number | string
   name: string
   desc: string
   module: Module
@@ -23,24 +25,24 @@ export type Basic = {
 }
 
 export type Module = {
-  id: number
+  id: number | string
   name: string
   desc: string
 }
 export type Label = {
-  id: number
-  name: string
-  desc: string
+  id: number | string
+  name?: string
+  desc?: string
 }
 
 export type Case = {
-  id: number
+  id?: number | string
   name: string
   desc: string
-  module: Module
-  label: Label[]
-  variable: {
-    [key: string]: string
+  module?: Module
+  label?: Label[]
+  variable?: {
+    [key: string]: string | number
   }
   step?: Step[]
   create_user: string
@@ -48,10 +50,11 @@ export type Case = {
 }
 
 export type Step = {
-  id: number
+  id?: number
   name: string
   desc: string
   type: string
+  retry: object
   params: object
   handlers?: Handler[]
   sleep: number
@@ -127,7 +130,8 @@ export type ExtAsserts = {
 
 export type Handler = {
   type: string
-  parmas: object
+  desc?: string
+  params: object
 }
 
 export type List = {

@@ -74,7 +74,7 @@ export const getPlanDataApi = (data: any) => {
 }
 
 export const getCaseDataApi = (data: any) => {
-  return request<ApiResponseData<METER.Plan>>({
+  return request<ApiResponseData<METER.Case>>({
     url: "caseManage/get",
     method: "post",
     data: data
@@ -106,6 +106,21 @@ export const getStepListApi = (data: any) => {
 export const getFileListApi = (data: any) => {
   return request<ApiResponseData<METER.Basic>>({
     url: "fileManage/list",
+    method: "post",
+    data: data
+  })
+}
+
+export const savePlanDataApi = (data: any) => {
+  return request<ApiResponseData<{}>>({
+    url: "planManage/save",
+    method: "post",
+    data: data
+  })
+}
+export const saveCaseDataApi = (data: any) => {
+  return request<ApiResponseData<{}>>({
+    url: "caseManage/save",
     method: "post",
     data: data
   })
