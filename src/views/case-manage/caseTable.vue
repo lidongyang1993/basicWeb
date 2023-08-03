@@ -37,6 +37,14 @@
         <el-button @click="saveInfo">保存</el-button>
         <CaseLine :info="caseInfo" v-if="dialog.title === '编辑' && caseInfo" />
       </div>
+      <div v-if="dialog.title === '预览'">
+        <el-button @click="saveInfo">保存</el-button>
+        <jsonViewer :value="caseInfo" v-if="dialog.title === '预览' && caseInfo" />
+      </div>
+      <!-- <div v-if="dialog.title === '添加'">
+        <el-button @click="saveInfo">保存</el-button>
+        <CaseLine :info="newCase" v-if="dialog.title === '添加' && newCase" />
+      </div> -->
     </el-dialog>
   </div>
 </template>
@@ -49,6 +57,8 @@ import { alert_error } from "@/config/elMessage"
 import Tools from "@/views/case-manage/components/tools.vue"
 import CaseViews from "@/views/case-manage/components/views/caseViews.vue"
 import CaseLine from "./components/design/caseLine.vue"
+// import jsonViewer from "vue3-json-viewer"
+// import JsonEditorVue from "json-editor-vue3"
 const props = defineProps({
   planId: {
     type: Number,
@@ -92,7 +102,15 @@ const dialog = reactive({
 
 const caseInfo = ref<Case>()
 
+// const newCase = ref<Case>({
+//   name: "",
+//   desc: "",
+//   update_user: "",
+//   create_user: ""
+// })
+
 const getData = () => {
+  if (dialog.title === "添加") return
   if (multipleSelection.value.length !== 1) {
     alert_error("请选择且只选择一条数据")
     return
@@ -100,6 +118,7 @@ const getData = () => {
   getCaseDataApi({ id: multipleSelection.value[0].id })
     .then((res: ApiResponseData<Case>) => {
       caseInfo.value = res.data
+      console.log(caseInfo)
     })
     .catch(() => {})
     .finally(() => {
@@ -117,6 +136,17 @@ const saveInfo = () => {
       dialog.visible = false
     })
 }
+
+// const createInfo = () => {
+//   createCaseDataApi({ planId: multipleSelection.value[0].id, data: caseInfo.value })
+//     .then((res: ApiResponseData<{}>) => {
+//       console.log(res)
+//     })
+//     .catch(() => {})
+//     .finally(() => {
+//       dialog.visible = false
+//     })
+// }
 </script>
 
 <style lang="scss" scoped></style>

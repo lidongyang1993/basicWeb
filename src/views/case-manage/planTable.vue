@@ -21,7 +21,12 @@
         </el-form-item>
       </template>
       <template #tools>
-        <Tools :dialog="dialog" :get-data="getData" />
+        <div class="tools-but">
+          <Tools :dialog="dialog" :get-data="getData" />
+        </div>
+      </template>
+      <template #tools-right>
+        <el-button type="primary" @click="addCase">添加用例</el-button>
       </template>
       <template #default>
         <el-table-column type="selection" width="50" align="center" />
@@ -34,9 +39,21 @@
     </Table>
     <el-dialog v-model="dialog.visible" width="70%" v-if="dialog.visible">
       <plan-views :info="planInfo.data" v-if="dialog.title === '查看'" />
+      <div v-if="dialog.title === '添加'">
+        <el-button @click="saveInfo">保存</el-button>
+        <PlanLine :info="new_plan_info" />
+      </div>
       <div v-if="dialog.title === '编辑'">
         <el-button @click="saveInfo">保存</el-button>
         <PlanLine :info="planInfo.data" />
+      </div>
+      <div v-if="dialog.title === '预览'">
+        <!-- <el-button @click="saveInfo">保存</el-button> -->
+        <jsonViewer :value="planInfo.data" />
+      </div>
+      <div v-if="dialog.title === '添加用例'">
+        <el-button @click="saveCase">保存</el-button>
+        <CaseLine :info="newCase" v-if="dialog.title === '添加用例' && newCase" />
       </div>
     </el-dialog>
   </div>
@@ -44,13 +61,14 @@
 <script lang="ts" name="planManage" setup>
 import Table from "@/components/Table/index.vue"
 import { reactive, ref } from "vue"
-import { getPlanListApi, getPlanDataApi, savePlanDataApi } from "@/api/case"
-import { Plan } from "@/api/case/types/case"
+import { getPlanListApi, getPlanDataApi, savePlanDataApi, saveCaseDataApi } from "@/api/case"
+import { Plan, Case } from "@/api/case/types/case"
 import { alert_error } from "@/config/elMessage"
 
 import planViews from "@/views/case-manage/components/views/planViews.vue"
 import Tools from "@/views/case-manage/components/tools.vue"
 import PlanLine from "@/views/case-manage/components/design/planLine.vue"
+import CaseLine from "./components/design/caseLine.vue"
 
 const searchData = reactive({
   id: null,
@@ -79,6 +97,13 @@ const saveInfo = () => {
     })
 }
 
+const newCase = ref<Case>({
+  name: "",
+  desc: "",
+  update_user: "",
+  create_user: ""
+})
+
 const multipleSelection = ref<Plan[]>([])
 const handleSelectionChange = (val: Plan[]) => {
   multipleSelection.value = val
@@ -93,12 +118,23 @@ const planInfo = reactive({
   }
 })
 
+const new_plan_info = ref({
+  name: "",
+  desc: "",
+  create_user: "",
+  update_user: ""
+})
+
 const dialog = reactive({
   visible: false,
   title: ""
 })
 
 const getData = () => {
+  if (dialog.title == "添加") {
+    return
+  }
+
   if (multipleSelection.value.length !== 1) {
     alert_error("请选择且只选择一条数据")
     return
@@ -113,6 +149,31 @@ const getData = () => {
       dialog.visible = true
     })
 }
+const addCase = () => {
+  dialog.title = "添加用例"
+
+  if (multipleSelection.value.length !== 1) {
+    alert_error("请选择且只选择一条数据")
+    return
+  } else dialog.visible = true
+}
+
+const saveCase = () => {
+  saveCaseDataApi({ planId: multipleSelection.value[0].id, data: newCase.value })
+    .then((res: ApiResponseData<{}>) => {
+      console.log(res)
+    })
+    .catch(() => {})
+    .finally(() => {
+      dialog.visible = false
+    })
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tools-but {
+  margin-top: 0px;
+  display: flex;
+  justify-content: space-between;
+}
+</style>

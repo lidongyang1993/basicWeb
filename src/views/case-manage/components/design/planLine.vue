@@ -31,7 +31,7 @@
         :item-key="String(add_id)"
       >
         <template #item="{ element, index }">
-          <div class="un-choose">
+          <div class="un-choose case">
             <el-form-item v-if="element" size="small">
               <caseLine
                 :info="element"
@@ -100,8 +100,9 @@ const deleteCase = (index: number) => {
 const copyCase = (index: number) => {
   if (info.value.case !== undefined) {
     console.log(info.value.case[Number(index)])
-
-    info.value.case.splice(index, 0, { ...info.value.case[Number(index)] })
+    const new_case = { ...info.value.case[Number(index)] }
+    new_case.id = undefined
+    info.value.case.splice(index + 1, 0, new_case)
   }
 }
 const changeLableList = () => {
@@ -182,13 +183,13 @@ onMounted(() => {
   opacity: 1;
 }
 .case {
-  border: solid 1px #f5b4b4 !important;
+  border: solid 1px #f5b4b4;
 }
 .step {
-  border: solid 1px #b4f5b5 !important;
+  border: solid 1px #b4f5b5;
 }
 .handler {
-  border: solid 1px #b4f5f3 !important;
+  border: solid 1px #b4f5f3;
 }
 .tools-but {
   margin-top: 0px;

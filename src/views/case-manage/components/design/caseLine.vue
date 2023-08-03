@@ -22,7 +22,7 @@
         @add="add_element($event)"
       >
         <template #item="{ element, index }">
-          <div class="un-choose">
+          <div class="un-choose step">
             <el-form-item v-if="element" size="small">
               <stepLine
                 :info="element"
@@ -125,8 +125,6 @@ const deleteStep = (index: number) => {
 
 const copyStep = (index: number) => {
   if (info.value.step !== undefined) {
-    console.log(info.value.step[Number(index)])
-
     info.value.step.splice(index, 0, { ...info.value.step[Number(index)] })
   }
 }

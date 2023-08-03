@@ -95,6 +95,7 @@ onMounted(() => {
           <slot name="tools" />
         </div>
         <div>
+          <slot name="tools-right" />
           <el-tooltip content="刷新当前页">
             <el-button type="primary" :icon="RefreshRight" circle @click="getTableData" />
           </el-tooltip>
