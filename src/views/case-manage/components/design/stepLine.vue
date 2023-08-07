@@ -73,7 +73,7 @@
           <JsonEditorVue v-model="info.retry" />
         </el-descriptions-item>
         <el-descriptions-item label="请求/插件-具体参数">
-          <JsonEditorVue v-model="info.params" />
+          <JsonEditorVue v-model="info.params" h="500px" />
         </el-descriptions-item>
       </el-descriptions>
     </el-dialog>
