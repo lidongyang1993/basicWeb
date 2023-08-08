@@ -40,7 +40,7 @@
     <el-dialog v-model="dialog.visible" width="70%" v-if="dialog.visible">
       <plan-views :info="planInfo.data" v-if="dialog.title === '查看'" />
       <div v-if="dialog.title === '添加'">
-        <el-button @click="saveInfo">保存</el-button>
+        <el-button @click="addPlan">保存</el-button>
         <PlanLine :info="new_plan_info" />
       </div>
       <div v-if="dialog.title === '编辑'">
@@ -49,11 +49,11 @@
       </div>
       <div v-if="dialog.title === '预览'">
         <!-- <el-button @click="saveInfo">保存</el-button> -->
-        <jsonViewer :value="planInfo.data" />
+        <JsonEditorVue v-model="planInfo.data" class="h-800px" />
       </div>
       <div v-if="dialog.title === '添加用例'">
         <el-button @click="saveCase">保存</el-button>
-        <CaseLine :info="newCase" v-if="dialog.title === '添加用例' && newCase" />
+        <CaseLine :info="newCase" v-if="dialog.title === '添加用例'" />
       </div>
     </el-dialog>
   </div>
@@ -61,7 +61,7 @@
 <script lang="ts" name="planManage" setup>
 import Table from "@/components/Table/index.vue"
 import { reactive, ref } from "vue"
-import { getPlanListApi, getPlanDataApi, savePlanDataApi, saveCaseDataApi } from "@/api/case"
+import { getPlanListApi, getPlanDataApi, savePlanDataApi, addCaseDataApi, addPlanDataApi } from "@/api/case"
 import { Plan, Case } from "@/api/case/types/case"
 import { alert_error } from "@/config/elMessage"
 
@@ -69,6 +69,7 @@ import planViews from "@/views/case-manage/components/views/planViews.vue"
 import Tools from "@/views/case-manage/components/tools.vue"
 import PlanLine from "@/views/case-manage/components/design/planLine.vue"
 import CaseLine from "./components/design/caseLine.vue"
+import JsonEditorVue from "json-editor-vue3"
 
 const searchData = reactive({
   id: null,
@@ -93,7 +94,7 @@ const saveInfo = () => {
     })
     .catch(() => {})
     .finally(() => {
-      dialog.visible = true
+      dialog.visible = false
     })
 }
 
@@ -149,6 +150,19 @@ const getData = () => {
       dialog.visible = true
     })
 }
+
+const addPlan = () => {
+  console.log(new_plan_info.value)
+  addPlanDataApi({ data: new_plan_info.value })
+    .then((res: ApiResponseData<Plan>) => {
+      console.log(res.data)
+    })
+    .catch(() => {})
+    .finally(() => {
+      dialog.visible = false
+    })
+}
+
 const addCase = () => {
   dialog.title = "添加用例"
 
@@ -159,7 +173,7 @@ const addCase = () => {
 }
 
 const saveCase = () => {
-  saveCaseDataApi({ planId: multipleSelection.value[0].id, data: newCase.value })
+  addCaseDataApi({ planId: multipleSelection.value[0].id, data: newCase.value })
     .then((res: ApiResponseData<{}>) => {
       console.log(res)
     })

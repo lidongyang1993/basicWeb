@@ -73,6 +73,21 @@ export const getPlanDataApi = (data: any) => {
   })
 }
 
+export const addPlanDataApi = (data: any) => {
+  return request<ApiResponseData<METER.Plan>>({
+    url: "planManage/add",
+    method: "post",
+    data: data
+  })
+}
+export const addCaseDataApi = (data: any) => {
+  return request<ApiResponseData<METER.Plan>>({
+    url: "caseManage/add",
+    method: "post",
+    data: data
+  })
+}
+
 export const getCaseDataApi = (data: any) => {
   return request<ApiResponseData<METER.Case>>({
     url: "caseManage/get",

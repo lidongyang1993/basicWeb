@@ -39,7 +39,7 @@
       </div>
       <div v-if="dialog.title === '预览'">
         <el-button @click="saveInfo">保存</el-button>
-        <jsonViewer :value="caseInfo" v-if="dialog.title === '预览' && caseInfo" />
+        <JsonEditorVue v-model="caseInfo" v-if="dialog.title === '预览' && caseInfo" class="h-800px" />
       </div>
       <!-- <div v-if="dialog.title === '添加'">
         <el-button @click="saveInfo">保存</el-button>
@@ -58,7 +58,7 @@ import Tools from "@/views/case-manage/components/tools.vue"
 import CaseViews from "@/views/case-manage/components/views/caseViews.vue"
 import CaseLine from "./components/design/caseLine.vue"
 // import jsonViewer from "vue3-json-viewer"
-// import JsonEditorVue from "json-editor-vue3"
+import JsonEditorVue from "json-editor-vue3"
 const props = defineProps({
   planId: {
     type: Number,
@@ -122,7 +122,7 @@ const getData = () => {
     })
     .catch(() => {})
     .finally(() => {
-      dialog.visible = true
+      dialog.visible = false
     })
 }
 
