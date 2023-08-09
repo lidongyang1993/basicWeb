@@ -67,6 +67,7 @@
 
 <script setup lang="ts">
 import { Case } from "@/api/case/types/case"
+import { deepClone } from "@/api/case"
 import { onMounted, ref, toRefs } from "vue"
 import Draggable from "vuedraggable"
 import stepLine from "./stepLine.vue"
@@ -125,7 +126,7 @@ const deleteStep = (index: number) => {
 
 const copyStep = (index: number) => {
   if (info.value.step !== undefined) {
-    info.value.step.splice(index, 0, { ...info.value.step[Number(index)] })
+    info.value.step.splice(index, 0, deepClone(info.value.step[Number(index)]))
   }
 }
 

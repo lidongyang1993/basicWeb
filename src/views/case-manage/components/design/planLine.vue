@@ -75,7 +75,7 @@
 <script setup lang="ts">
 import { Plan, Module, Label } from "@/api/case/types/case"
 import { onMounted, ref, toRefs } from "vue"
-import { getLabelListApi, getModuleListApi } from "@/api/case"
+import { getLabelListApi, getModuleListApi, deepClone } from "@/api/case"
 import caseLine from "./caseLine.vue"
 import Draggable from "vuedraggable"
 import JsonEditorVue from "json-editor-vue3"
@@ -100,7 +100,8 @@ const deleteCase = (index: number) => {
 const copyCase = (index: number) => {
   if (info.value.case !== undefined) {
     console.log(info.value.case[Number(index)])
-    const new_case = { ...info.value.case[Number(index)] }
+    // const new_case = { ...info.value.case[Number(index)] }
+    const new_case = deepClone(info.value.case[Number(index)])
     new_case.id = undefined
     info.value.case.splice(index + 1, 0, new_case)
   }
