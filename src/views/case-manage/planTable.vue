@@ -48,7 +48,8 @@
         <PlanLine :info="planInfo.data" />
       </div>
       <div v-if="dialog.title === '预览'">
-        <!-- <el-button @click="saveInfo">保存</el-button> -->
+        <el-button @click="saveInfo">保存</el-button>
+        <el-button @click="debugPlan">调试</el-button>
         <JsonEditorVue v-model="planInfo.data" class="h-800px" />
       </div>
       <div v-if="dialog.title === '添加用例'">
@@ -61,9 +62,16 @@
 <script lang="ts" name="planManage" setup>
 import Table from "@/components/Table/index.vue"
 import { reactive, ref } from "vue"
-import { getPlanListApi, getPlanDataApi, savePlanDataApi, addCaseDataApi, addPlanDataApi } from "@/api/case"
+import {
+  getPlanListApi,
+  getPlanDataApi,
+  savePlanDataApi,
+  addCaseDataApi,
+  addPlanDataApi,
+  debugCaseApi
+} from "@/api/case"
 import { Plan, Case } from "@/api/case/types/case"
-import { alert_error } from "@/config/elMessage"
+import { alert_error, alert_info } from "@/config/elMessage"
 
 import planViews from "@/views/case-manage/components/views/planViews.vue"
 import Tools from "@/views/case-manage/components/tools.vue"
@@ -181,6 +189,26 @@ const saveCase = () => {
     .finally(() => {
       dialog.visible = false
     })
+}
+
+const debugPlan = () => {
+  debugCaseApi({ data: planInfo.data })
+    .then((res) => {
+      if (res) {
+        if (res.code === 0) {
+          if (res.data.result === false) {
+            alert_info("cheack-失败")
+          } else {
+            alert_info("debug-完成")
+            window.open(res.data.log_url)
+          }
+        } else {
+          alert_error("debug-失败")
+        }
+      }
+    })
+    .catch(() => {})
+    .finally(() => {})
 }
 </script>
 
