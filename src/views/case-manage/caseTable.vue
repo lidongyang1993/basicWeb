@@ -39,6 +39,7 @@
       </div>
       <div v-if="dialog.title === '预览'">
         <el-button @click="saveInfo">保存</el-button>
+        <el-button @click="debugCase">调试</el-button>
         <JsonEditorVue v-model="caseInfo" v-if="dialog.title === '预览' && caseInfo" class="h-800px" />
       </div>
       <!-- <div v-if="dialog.title === '添加'">
@@ -51,14 +52,16 @@
 <script lang="ts" name="caseManage" setup>
 import Table from "@/components/Table/index.vue"
 import { reactive, ref, toRefs } from "vue"
-import { getCaseListApi, getCaseDataApi, saveCaseDataApi } from "@/api/case"
+import { getCaseListApi, getCaseDataApi, saveCaseDataApi, getPlanDataOnlyCaseApi } from "@/api/case"
 import { Case } from "@/api/case/types/case"
-import { alert_error } from "@/config/elMessage"
+import { alert_error, alert_info } from "@/config/elMessage"
 import Tools from "@/views/case-manage/components/tools.vue"
 import CaseViews from "@/views/case-manage/components/views/caseViews.vue"
 import CaseLine from "./components/design/caseLine.vue"
 // import jsonViewer from "vue3-json-viewer"
 import JsonEditorVue from "json-editor-vue3"
+import { debugCaseApi } from "@/api/case/index"
+import { Plan } from "@/api/case/types/case"
 const props = defineProps({
   planId: {
     type: Number,
@@ -124,6 +127,38 @@ const getData = () => {
     .finally(() => {
       dialog.visible = true
     })
+}
+
+const case_view_data = ref<Plan>()
+
+const debugCase = () => {
+  const result = ref({ data: {} })
+  getPlanDataOnlyCaseApi({ id: caseInfo.value?.id })
+    .then((res) => {
+      if (res) {
+        case_view_data.value = res.data
+        debugCaseApi({ data: case_view_data.value })
+          .then((res) => {
+            if (res) {
+              result.value.data = res.data
+              if (res.code === 0) {
+                if (res.data.result === false) {
+                  alert_info("cheack-失败")
+                } else {
+                  alert_info("debug-完成")
+                  window.open(res.data.log_url)
+                }
+              } else {
+                alert_error("debug-失败")
+              }
+            }
+          })
+          .catch(() => {})
+          .finally(() => {})
+      }
+    })
+    .catch(() => {})
+    .finally(() => {})
 }
 
 const saveInfo = () => {

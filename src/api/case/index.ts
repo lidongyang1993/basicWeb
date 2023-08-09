@@ -34,8 +34,15 @@ export const updateCaseApi = (data: any) => {
 }
 
 export const debugCaseApi = (data: any) => {
-  return request<ApiResponseData<{ result: boolean; data: object }>>({
+  return request<ApiResponseData<{ result: boolean; log_url: string }>>({
     url: "case/debug",
+    method: "post",
+    data: data
+  })
+}
+export const getPlanDataOnlyCaseApi = (data: any) => {
+  return request<ApiResponseData<METER.Plan>>({
+    url: "caseManage/getPlan",
     method: "post",
     data: data
   })
