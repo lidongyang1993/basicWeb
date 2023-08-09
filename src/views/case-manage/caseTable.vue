@@ -35,6 +35,7 @@
 
       <div v-if="dialog.title === '编辑'">
         <el-button @click="saveInfo">保存</el-button>
+        <el-button @click="debugCase">调试</el-button>
         <CaseLine :info="caseInfo" v-if="dialog.title === '编辑' && caseInfo" />
       </div>
       <div v-if="dialog.title === '预览'">
