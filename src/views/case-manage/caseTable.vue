@@ -122,7 +122,7 @@ const getData = () => {
     })
     .catch(() => {})
     .finally(() => {
-      dialog.visible = false
+      dialog.visible = true
     })
 }
 
