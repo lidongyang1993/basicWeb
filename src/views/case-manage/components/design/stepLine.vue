@@ -1,58 +1,59 @@
 <template>
   <div>
-    <el-descriptions size="small" :column="5" :border="true" @dblclick="dialog = true">
-      <el-descriptions-item label="步骤名称">
-        <el-input v-model="info.name" />
-      </el-descriptions-item>
-      <el-descriptions-item label="描述">
-        <el-input v-model="info.desc" />
-      </el-descriptions-item>
-      <el-descriptions-item label="类型" width="10%">
-        <el-select v-model="info.type" size="small">
-          <el-option v-for="item in typeOptions" :key="item" :label="item" :value="item" size="small" />
-        </el-select>
-      </el-descriptions-item>
-      <el-descriptions-item label="等待" width="5%">
-        <el-input-number v-model="info.sleep" />
-      </el-descriptions-item>
-    </el-descriptions>
-    <el-descriptions size="small" :column="5" :border="true" direction="vertical">
-      <el-descriptions-item>
-        <el-collapse>
-          <el-collapse-item :title="'展开/收缩'">
-            <Draggable
-              group="handler-group"
-              chosen-class="choose"
-              ghost-class="ghost"
-              :list="info.handlers"
-              :force-fallback="true"
-              :delay="300"
-              :animation="200"
-              :item-key="String(add_id)"
-              @add="add_element($event)"
-            >
-              <template #item="{ element, index }">
-                <div class="un-choose">
-                  <el-form-item v-if="element" size="small">
-                    <handlerLine :info="element" class="w-90%" />
-                    <el-button icon="CopyDocument" size="small" @click="copyHandler(index)" />
-                    <el-button icon="delete" size="small" @click="deleteHandler(index)" />
-                  </el-form-item>
-                </div>
-              </template>
-            </Draggable>
-            <div class="tools-but">
-              <el-button icon="plus" size="small" @click="add_handler_list">处理器</el-button>
-              <div>
-                <el-button icon="CopyDocument" size="small" @click="copyStep(stepIndex)">复制步骤</el-button>
-                <el-button icon="delete" size="small" @click="deleteStep(stepIndex)">删除步骤</el-button>
+    <el-collapse-item :title="'第' + (stepIndex + 1) + '步：' + info.name">
+      <el-descriptions size="small" :column="5" :border="true" @dblclick="dialog = true">
+        <el-descriptions-item label="步骤名称">
+          <el-input v-model="info.name" />
+        </el-descriptions-item>
+        <el-descriptions-item label="描述">
+          <el-input v-model="info.desc" />
+        </el-descriptions-item>
+        <el-descriptions-item label="类型" width="10%">
+          <el-select v-model="info.type" size="small">
+            <el-option v-for="item in typeOptions" :key="item" :label="item" :value="item" size="small" />
+          </el-select>
+        </el-descriptions-item>
+        <el-descriptions-item label="等待" width="5%">
+          <el-input-number v-model="info.sleep" />
+        </el-descriptions-item>
+      </el-descriptions>
+      <el-descriptions size="small" :column="5" :border="true" direction="vertical">
+        <el-descriptions-item>
+          <!-- <el-collapse> -->
+          <!-- <el-collapse-item :title="'展开/收缩'"> -->
+          <Draggable
+            group="handler-group"
+            chosen-class="choose"
+            ghost-class="ghost"
+            :list="info.handlers"
+            :force-fallback="true"
+            :delay="300"
+            :animation="200"
+            :item-key="String(add_id)"
+            @add="add_element($event)"
+          >
+            <template #item="{ element, index }">
+              <div class="un-choose">
+                <el-form-item v-if="element" size="small">
+                  <handlerLine :info="element" class="w-90%" />
+                  <el-button icon="CopyDocument" size="small" @click="copyHandler(index)" />
+                  <el-button icon="delete" size="small" @click="deleteHandler(index)" />
+                </el-form-item>
               </div>
-            </div>
-          </el-collapse-item>
-        </el-collapse>
-      </el-descriptions-item>
-    </el-descriptions>
-
+            </template>
+          </Draggable>
+          <!-- </el-collapse-item> -->
+          <!-- </el-collapse> -->
+        </el-descriptions-item>
+      </el-descriptions>
+    </el-collapse-item>
+    <div class="tools-but">
+      <el-button icon="plus" size="small" @click="add_handler_list">处理器</el-button>
+      <div>
+        <el-button icon="CopyDocument" size="small" @click="copyStep(stepIndex)">复制步骤</el-button>
+        <el-button icon="delete" size="small" @click="deleteStep(stepIndex)">删除步骤</el-button>
+      </div>
+    </div>
     <el-dialog v-model="dialog" :destroy-on-close="true">
       <el-descriptions size="small" :column="2" :border="true">
         <el-descriptions-item label="名称">
@@ -88,7 +89,7 @@ import Draggable from "vuedraggable"
 import handlerLine from "./handlerLine.vue"
 const props = defineProps<{
   info: Step
-  stepIndex: Number
+  stepIndex: number
   deleteStep: Function
   copyStep: Function
 }>()

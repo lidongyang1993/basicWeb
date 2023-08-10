@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-collapse-item :title="info.name">
+    <el-collapse-item :title="'用例：' + info.name">
       <el-card>
         <el-descriptions size="small" :column="2" :border="true" @dblclick="dialog = true">
           <el-descriptions-item label="用例名称">

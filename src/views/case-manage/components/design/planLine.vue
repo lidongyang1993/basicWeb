@@ -191,7 +191,7 @@ onMounted(() => {
   border: solid 1px #f5b4b4;
 }
 .step {
-  border: solid 1px #b4f5b5;
+  border: solid 1px #5ab5cb;
 }
 .handler {
   border: solid 1px #b4f5f3;

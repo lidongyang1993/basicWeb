@@ -45,7 +45,6 @@
       </div>
       <div v-if="dialog.title === '编辑'">
         <el-button @click="saveInfo">保存</el-button>
-
         <el-button @click="debugPlan">调试</el-button>
         <PlanLine :info="planInfo.data" />
       </div>
