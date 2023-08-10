@@ -20,34 +20,38 @@
         </el-descriptions-item>
       </el-descriptions>
     </el-card>
-    <el-card class="card-el">
-      <Draggable
-        chosen-class="choose"
-        ghost-class="ghost"
-        :list="info.case"
-        :force-fallback="true"
-        :delay="300"
-        :animation="200"
-        :item-key="String(add_id)"
-      >
-        <template #item="{ element, index }">
-          <div class="un-choose case">
-            <el-form-item v-if="element" size="small">
-              <caseLine
-                :info="element"
-                :case-index="index"
-                :delete-case="deleteCase"
-                :copy-case="copyCase"
-                class="w-100%"
-              />
-            </el-form-item>
-          </div>
-        </template>
-      </Draggable>
-      <div class="tools-but">
-        <el-button icon="plus" size="small" @click="add_case_list">用例</el-button>
-      </div>
-    </el-card>
+
+    <el-collapse>
+      <el-card class="card-el">
+        <Draggable
+          chosen-class="choose"
+          ghost-class="ghost"
+          :list="info.case"
+          :force-fallback="true"
+          :delay="300"
+          :animation="200"
+          :item-key="String(add_id)"
+        >
+          <template #item="{ element, index }">
+            <div class="un-choose case">
+              <el-form-item v-if="element" size="small">
+                <caseLine
+                  :info="element"
+                  :case-index="index"
+                  :delete-case="deleteCase"
+                  :copy-case="copyCase"
+                  class="w-100%"
+                />
+              </el-form-item>
+            </div>
+          </template>
+        </Draggable>
+
+        <div class="tools-but">
+          <el-button icon="plus" size="small" @click="add_case_list">用例</el-button>
+        </div>
+      </el-card>
+    </el-collapse>
     <el-dialog v-model="dialog" :destroy-on-close="true">
       <el-descriptions size="small" :column="2" :border="true">
         <el-descriptions-item label="计划名称">

@@ -1,41 +1,43 @@
 <template>
   <div>
-    <el-card>
-      <el-descriptions size="small" :column="2" :border="true" @dblclick="dialog = true">
-        <el-descriptions-item label="用例名称">
-          <el-input v-model="info.name" />
-        </el-descriptions-item>
-        <el-descriptions-item label="描述">
-          <el-input v-model="info.desc" />
-        </el-descriptions-item>
-      </el-descriptions>
-      <el-divider size="small" />
-      <Draggable
-        group="step-group"
-        chosen-class="choose"
-        ghost-class="ghost"
-        :list="info.step"
-        :force-fallback="true"
-        :delay="300"
-        :animation="200"
-        :item-key="String(add_id)"
-        @add="add_element($event)"
-      >
-        <template #item="{ element, index }">
-          <div class="un-choose step">
-            <el-form-item v-if="element" size="small">
-              <stepLine
-                :info="element"
-                :step-index="index"
-                :delete-step="deleteStep"
-                :copy-step="copyStep"
-                class="w-100%"
-              />
-            </el-form-item>
-          </div>
-        </template>
-      </Draggable>
-    </el-card>
+    <el-collapse-item :title="info.name">
+      <el-card>
+        <el-descriptions size="small" :column="2" :border="true" @dblclick="dialog = true">
+          <el-descriptions-item label="用例名称">
+            <el-input v-model="info.name" />
+          </el-descriptions-item>
+          <el-descriptions-item label="描述">
+            <el-input v-model="info.desc" />
+          </el-descriptions-item>
+        </el-descriptions>
+        <el-divider size="small" />
+        <Draggable
+          group="step-group"
+          chosen-class="choose"
+          ghost-class="ghost"
+          :list="info.step"
+          :force-fallback="true"
+          :delay="300"
+          :animation="200"
+          :item-key="String(add_id)"
+          @add="add_element($event)"
+        >
+          <template #item="{ element, index }">
+            <div class="un-choose step">
+              <el-form-item v-if="element" size="small">
+                <stepLine
+                  :info="element"
+                  :step-index="index"
+                  :delete-step="deleteStep"
+                  :copy-step="copyStep"
+                  class="w-100%"
+                />
+              </el-form-item>
+            </div>
+          </template>
+        </Draggable>
+      </el-card>
+    </el-collapse-item>
     <div class="tools-but">
       <el-button icon="plus" size="small" @click="add_step_list">步骤</el-button>
       <div>
