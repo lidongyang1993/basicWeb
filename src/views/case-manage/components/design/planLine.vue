@@ -188,10 +188,10 @@ onMounted(() => {
   opacity: 1;
 }
 .case {
-  border: solid 1px #f5b4b4;
+  border: solid 1px #ead5d5;
 }
 .step {
-  border: solid 1px #5ab5cb;
+  border: solid 1px #d7f3d7;
 }
 .handler {
   border: solid 1px #b4f5f3;
