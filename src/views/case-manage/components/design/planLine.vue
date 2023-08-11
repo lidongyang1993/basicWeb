@@ -204,4 +204,8 @@ onMounted(() => {
 .widget-view {
   margin: center;
 }
+.input-handlers {
+  display: flex;
+  justify-content: space-between;
+}
 </style>

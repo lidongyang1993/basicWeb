@@ -127,7 +127,7 @@ export const constantRoutes: RouteRecordRaw[] = [
       {
         path: "/case/faceplate",
         component: () => import("@/views/case-manage/caseDesign.vue"),
-        name: "caseFaceplate",
+        name: "caseDesign",
         meta: {
           title: "用例编辑面板",
           keepAlive: true
