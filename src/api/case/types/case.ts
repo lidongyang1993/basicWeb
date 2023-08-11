@@ -131,7 +131,7 @@ export type ExtAsserts = {
 export type Handler = {
   type: string
   desc?: string
-  params: object
+  params: any
 }
 
 export type List = {

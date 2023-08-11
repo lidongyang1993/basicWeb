@@ -35,6 +35,7 @@ const props = defineProps<{
 defineEmits(["update:info"])
 
 const typeOptions = ["asserts", "extract", "calculate", "ext_asserts"]
+// const funcAssertsOptions = ["==", ">=", "<=", "!=", "in"]
 
 const { info } = toRefs(props)
 const dialog = ref(false)

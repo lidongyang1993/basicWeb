@@ -126,7 +126,11 @@ const add_handler_list = () => {
     type: "handlers",
     info: {
       type: "asserts",
-      params: {}
+      params: {
+        value_left: "",
+        func: "==",
+        value_rignt: ""
+      }
     }
   }
 
