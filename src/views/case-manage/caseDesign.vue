@@ -91,6 +91,7 @@ const savePlan = () => {
   savePlanDataApi({ data: planInfo.value }).then((res: ApiResponseData<{}>) => {
     if (res) {
       if (res.code === 0) {
+        getData()
         alert_success("保存成功")
       } else {
         alert_error("保存失败")
