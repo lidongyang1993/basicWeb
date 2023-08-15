@@ -1,15 +1,15 @@
 {
   "name": "v3-admin-vite-case",
   "version": "1.0.0-beta",
-  "description": "一个免费开源的中后台管理系统基础解决方案，基于 Vue3、TypeScript、Element Plus、Pinia 和 Vite 等主流技术.",
+  "description": "依据v3-admin-vite框架,开发的接口自动化测试平台前端！",
   "author": {
-    "name": "pany",
-    "email": "939630029@qq.com",
-    "url": "https://github.com/pany-ang"
+    "name": "lidongyang1993",
+    "email": "lidongyang1993@hotmail.com",
+    "url": "https://github.com/LIDONGYANG1993"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/un-pany/v3-admin-vite.git"
+    "url": "https://github.com/LIDONGYANG1993/basicWeb"
   },
   "scripts": {
     "dev": "vite",
