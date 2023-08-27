@@ -33,7 +33,7 @@ import JsonEditorVue from "json-editor-vue3"
 import { reactive } from "vue"
 import ElButtonAffirm from "./affirmButton.vue"
 import { checkExrAssertsApi } from "@/api/case"
-import { alert_error, alert_success, alert_info } from "../../config/elMessage"
+import { alert_error, alert_success, alert_info } from "@/config/elMessage"
 
 const jsonParams = reactive({
   data: null,

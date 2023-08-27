@@ -75,7 +75,7 @@ const handleLogin = () => {
     <ThemeSwitch class="theme-switch" />
     <div class="login-card">
       <div class="title">
-        <img src="@/assets/layout/logo-text-2.png" />
+        <img src="@/assets/layout/v3-test.png" />
       </div>
       <div class="content">
         <el-form ref="loginFormRef" :model="loginFormData" :rules="loginFormRules" @keyup.enter="handleLogin">
